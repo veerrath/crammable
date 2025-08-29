@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import unit1Transcript from "../transcripts_ts/AP_Calculus_BC/unit1";
 import unit2Transcript from "../transcripts_ts/AP_Calculus_BC/unit2";
 import unit3Transcript from "../transcripts_ts/AP_Calculus_BC/unit3";
 import unit4Transcript from "../transcripts_ts/AP_Calculus_BC/unit4";
 import unit5Transcript from "../transcripts_ts/AP_Calculus_BC/unit5";
-import { BookOpen, Brain, Target, ChevronRight, Loader2, CheckCircle2, Play, Settings, User } from "lucide-react";
+import { BookOpen, Brain, Target, ChevronRight, Loader2, CheckCircle2, Play, User, LogOut, Sparkles, TrendingUp } from "lucide-react";
 
 interface Subunit {
   id: string;
@@ -125,7 +125,7 @@ export default function DashboardPage() {
   const getStageIcon = (status: ProcessingStage[keyof ProcessingStage]) => {
     switch (status) {
       case 'complete':
-        return <CheckCircle2 className="w-5 h-5 text-green-500" />;
+        return <CheckCircle2 className="w-5 h-5 text-emerald-500" />;
       case 'processing':
         return <Loader2 className="w-5 h-5 text-blue-500 animate-spin" />;
       default:
@@ -138,30 +138,87 @@ export default function DashboardPage() {
     if (!stages) return null;
 
     return (
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mb-8">
-        <h3 className="text-lg font-semibold text-gray-900 mb-6">AI Processing Pipeline</h3>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            {getStageIcon(stages.organize)}
-            <div>
-              <div className="font-medium text-gray-900">Organize</div>
-              <div className="text-sm text-gray-500">Structure content by topics</div>
+      <div className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100 mb-8">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+            <Sparkles className="w-5 h-5 text-white" />
+          </div>
+          <h3 className="text-xl font-bold text-gray-900">AI Processing Pipeline</h3>
+        </div>
+        
+        <div className="grid md:grid-cols-3 gap-6">
+          <div className={`p-4 rounded-xl border-2 transition-all duration-300 ${
+            stages.organize === 'complete' ? 'bg-emerald-50 border-emerald-200' :
+            stages.organize === 'processing' ? 'bg-blue-50 border-blue-200' :
+            'bg-gray-50 border-gray-200'
+          }`}>
+            <div className="flex items-center gap-3 mb-3">
+              {getStageIcon(stages.organize)}
+              <div>
+                <div className="font-bold text-gray-900">Organize</div>
+                <div className="text-sm text-gray-600">Structure content</div>
+              </div>
+            </div>
+            <div className={`w-full h-2 rounded-full ${
+              stages.organize === 'complete' ? 'bg-emerald-200' :
+              stages.organize === 'processing' ? 'bg-blue-200' :
+              'bg-gray-200'
+            }`}>
+              <div className={`h-full rounded-full transition-all duration-500 ${
+                stages.organize === 'complete' ? 'w-full bg-emerald-500' :
+                stages.organize === 'processing' ? 'w-3/4 bg-blue-500' :
+                'w-0'
+              }`}></div>
             </div>
           </div>
-          <ChevronRight className="w-5 h-5 text-gray-400" />
-          <div className="flex items-center gap-3">
-            {getStageIcon(stages.condense)}
-            <div>
-              <div className="font-medium text-gray-900">Condense</div>
-              <div className="text-sm text-gray-500">Extract key concepts</div>
+
+          <div className={`p-4 rounded-xl border-2 transition-all duration-300 ${
+            stages.condense === 'complete' ? 'bg-emerald-50 border-emerald-200' :
+            stages.condense === 'processing' ? 'bg-blue-50 border-blue-200' :
+            'bg-gray-50 border-gray-200'
+          }`}>
+            <div className="flex items-center gap-3 mb-3">
+              {getStageIcon(stages.condense)}
+              <div>
+                <div className="font-bold text-gray-900">Condense</div>
+                <div className="text-sm text-gray-600">Extract concepts</div>
+              </div>
+            </div>
+            <div className={`w-full h-2 rounded-full ${
+              stages.condense === 'complete' ? 'bg-emerald-200' :
+              stages.condense === 'processing' ? 'bg-blue-200' :
+              'bg-gray-200'
+            }`}>
+              <div className={`h-full rounded-full transition-all duration-500 ${
+                stages.condense === 'complete' ? 'w-full bg-emerald-500' :
+                stages.condense === 'processing' ? 'w-3/4 bg-blue-500' :
+                'w-0'
+              }`}></div>
             </div>
           </div>
-          <ChevronRight className="w-5 h-5 text-gray-400" />
-          <div className="flex items-center gap-3">
-            {getStageIcon(stages.review)}
-            <div>
-              <div className="font-medium text-gray-900">Review</div>
-              <div className="text-sm text-gray-500">Generate study guide</div>
+
+          <div className={`p-4 rounded-xl border-2 transition-all duration-300 ${
+            stages.review === 'complete' ? 'bg-emerald-50 border-emerald-200' :
+            stages.review === 'processing' ? 'bg-blue-50 border-blue-200' :
+            'bg-gray-50 border-gray-200'
+          }`}>
+            <div className="flex items-center gap-3 mb-3">
+              {getStageIcon(stages.review)}
+              <div>
+                <div className="font-bold text-gray-900">Review</div>
+                <div className="text-sm text-gray-600">Generate guide</div>
+              </div>
+            </div>
+            <div className={`w-full h-2 rounded-full ${
+              stages.review === 'complete' ? 'bg-emerald-200' :
+              stages.review === 'processing' ? 'bg-blue-200' :
+              'bg-gray-200'
+            }`}>
+              <div className={`h-full rounded-full transition-all duration-500 ${
+                stages.review === 'complete' ? 'w-full bg-emerald-500' :
+                stages.review === 'processing' ? 'w-3/4 bg-blue-500' :
+                'w-0'
+              }`}></div>
             </div>
           </div>
         </div>
@@ -170,12 +227,12 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
       {/* Sidebar */}
-      <nav className="w-80 bg-white shadow-sm border-r border-gray-200 flex flex-col">
+      <nav className="w-80 bg-white/90 backdrop-blur-xl shadow-2xl border-r border-gray-200/50 flex flex-col">
         {/* Header */}
         <div className="p-6 border-b border-gray-100">
-          <div className="text-xl font-bold text-gray-900 mb-1">
+          <div className="text-xl font-black text-gradient mb-1">
             Study Dashboard
           </div>
           <div className="text-sm text-gray-500">
@@ -186,16 +243,17 @@ export default function DashboardPage() {
         {/* Navigation */}
         <div className="flex-1 p-6 space-y-6">
           <div>
-            <h2 className="text-sm font-semibold text-gray-900 uppercase tracking-wide mb-4">
+            <h2 className="text-xs font-black text-gray-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+              <BookOpen className="w-4 h-4" />
               Subjects
             </h2>
             {SUBJECTS.map((subject) => (
               <button
                 key={subject}
-                className={`w-full p-4 rounded-xl text-left transition-all duration-200 ${
+                className={`w-full p-4 rounded-xl text-left transition-all duration-300 shadow-lg hover:shadow-xl ${
                   selectedSubject === subject 
-                    ? "bg-blue-600 text-white shadow-lg" 
-                    : "bg-gray-50 hover:bg-gray-100 text-gray-900"
+                    ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-glow" 
+                    : "bg-white hover:bg-gray-50 text-gray-900 border border-gray-200"
                 }`}
                 onClick={() => {
                   setSelectedSubject(subject);
@@ -204,7 +262,7 @@ export default function DashboardPage() {
               >
                 <div className="flex items-center gap-3">
                   <BookOpen className="w-5 h-5" />
-                  <span className="font-medium">{subject}</span>
+                  <span className="font-bold">{subject}</span>
                 </div>
               </button>
             ))}
@@ -212,17 +270,18 @@ export default function DashboardPage() {
 
           {selectedSubject && (
             <div>
-              <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wide mb-4">
+              <h3 className="text-xs font-black text-gray-900 uppercase tracking-wider mb-4 flex items-center gap-2">
+                <TrendingUp className="w-4 h-4" />
                 Units
               </h3>
-              <div className="space-y-2">
+              <div className="space-y-3">
                 {UNITS.map((unit) => (
                   <button
                     key={unit}
-                    className={`w-full p-3 text-left rounded-xl transition-all duration-200 group ${
+                    className={`w-full p-4 text-left rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl ${
                       selectedUnit === unit 
-                        ? "bg-blue-50 border-2 border-blue-200 text-blue-900" 
-                        : "bg-gray-50 hover:bg-gray-100 text-gray-700 border-2 border-transparent"
+                        ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-glow" 
+                        : "bg-white hover:bg-gray-50 text-gray-700 border border-gray-200"
                     }`}
                     onClick={() => {
                       setSelectedUnit(unit);
@@ -232,9 +291,13 @@ export default function DashboardPage() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         <Play className="w-4 h-4" />
-                        <span className="font-medium">{unit}</span>
+                        <span className="font-bold">{unit}</span>
                       </div>
-                      {reviewData[unit] && <CheckCircle2 className="w-4 h-4 text-green-500" />}
+                      {reviewData[unit] && (
+                        <div className="w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg">
+                          <CheckCircle2 className="w-4 h-4 text-white" />
+                        </div>
+                      )}
                     </div>
                   </button>
                 ))}
@@ -245,12 +308,19 @@ export default function DashboardPage() {
 
         {/* Footer */}
         <div className="p-6 border-t border-gray-100">
-          <div className="flex items-center gap-3 text-gray-600">
-            <User className="w-5 h-5" />
-            <div>
-              <div className="font-medium text-gray-900">Student</div>
-              <div className="text-sm">Free Plan</div>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                <User className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <div className="font-bold text-gray-900">Student</div>
+                <div className="text-sm text-gray-500">Free Plan</div>
+              </div>
             </div>
+            <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors rounded-lg hover:bg-gray-100">
+              <LogOut className="w-5 h-5" />
+            </button>
           </div>
         </div>
       </nav>
@@ -258,10 +328,12 @@ export default function DashboardPage() {
       {/* Main Content */}
       <main className="flex-1 overflow-auto">
         {!selectedSubject && (
-          <div className="flex items-center justify-center h-full">
-            <div className="text-center max-w-md">
-              <BookOpen className="w-16 h-16 text-gray-400 mx-auto mb-6" />
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Welcome to Crammable</h2>
+          <div className="flex items-center justify-center h-full p-8">
+            <div className="text-center max-w-lg">
+              <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-glow">
+                <BookOpen className="w-10 h-10 text-white" />
+              </div>
+              <h2 className="text-3xl font-black text-gray-900 mb-4">Welcome to Crammable</h2>
               <p className="text-gray-600 leading-relaxed">
                 Select a subject from the sidebar to begin your AI-powered learning journey.
               </p>
@@ -270,10 +342,12 @@ export default function DashboardPage() {
         )}
         
         {selectedSubject && !selectedUnit && (
-          <div className="flex items-center justify-center h-full">
-            <div className="text-center max-w-md">
-              <Brain className="w-16 h-16 text-blue-500 mx-auto mb-6" />
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Choose a Unit</h2>
+          <div className="flex items-center justify-center h-full p-8">
+            <div className="text-center max-w-lg">
+              <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-glow-purple">
+                <Brain className="w-10 h-10 text-white" />
+              </div>
+              <h2 className="text-3xl font-black text-gray-900 mb-4">Choose a Unit</h2>
               <p className="text-gray-600 leading-relaxed">
                 Select a unit to start the AI processing pipeline and generate your comprehensive study guide.
               </p>
@@ -286,12 +360,12 @@ export default function DashboardPage() {
             <div className="max-w-5xl mx-auto">
               {/* Header */}
               <div className="mb-8">
-                <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
-                  <span>{selectedSubject}</span>
+                <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
+                  <span className="bg-gray-100 px-3 py-1 rounded-full">{selectedSubject}</span>
                   <ChevronRight className="w-4 h-4" />
-                  <span>{selectedUnit}</span>
+                  <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full">{selectedUnit}</span>
                 </div>
-                <h1 className="text-4xl font-bold text-gray-900 mb-3">
+                <h1 className="text-4xl font-black text-gray-900 mb-3">
                   {selectedUnit} Study Guide
                 </h1>
                 <p className="text-lg text-gray-600">
@@ -303,16 +377,21 @@ export default function DashboardPage() {
 
               {/* Content Display */}
               {reviewData[selectedUnit] && (
-                <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                  <div className="bg-gradient-to-r from-blue-50 to-purple-50 px-8 py-6 border-b border-gray-100">
+                <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden">
+                  <div className="bg-gradient-to-r from-emerald-500 to-blue-600 px-8 py-6 text-white">
                     <div className="flex items-center gap-3">
-                      <Target className="w-6 h-6 text-blue-600" />
-                      <h2 className="text-2xl font-bold text-gray-900">Comprehensive Review</h2>
+                      <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                        <Target className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <h2 className="text-2xl font-black">Comprehensive Review</h2>
+                        <p className="text-emerald-100">AI-generated study guide</p>
+                      </div>
                     </div>
                   </div>
                   <div className="p-8">
                     <div 
-                      className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-strong:text-gray-900 prose-blue"
+                      className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-strong:text-gray-900"
                       dangerouslySetInnerHTML={{ 
                         __html: reviewData[selectedUnit]
                           .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
@@ -332,19 +411,21 @@ export default function DashboardPage() {
               {!reviewData[selectedUnit] && condensedData[selectedUnit] && (
                 <div className="space-y-6">
                   <div className="flex items-center gap-3 mb-6">
-                    <Brain className="w-6 h-6 text-purple-600" />
-                    <h2 className="text-2xl font-bold text-gray-900">Condensed Content</h2>
+                    <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-600 rounded-xl flex items-center justify-center shadow-lg">
+                      <Brain className="w-6 h-6 text-white" />
+                    </div>
+                    <h2 className="text-2xl font-black text-gray-900">Condensed Content</h2>
                   </div>
                   {condensedData[selectedUnit].map((subunit) => (
-                    <div key={subunit.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                      <div className="bg-purple-50 px-6 py-4 border-b border-gray-100">
-                        <h3 className="text-lg font-semibold text-gray-900">
+                    <div key={subunit.id} className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-300">
+                      <div className="bg-gradient-to-r from-purple-500 to-pink-600 px-6 py-4 text-white">
+                        <h3 className="text-lg font-bold">
                           {subunit.id} - {subunit.title}
                         </h3>
                       </div>
                       <div className="p-6">
                         <div 
-                          className="prose prose-gray max-w-none mb-6"
+                          className="prose prose-base max-w-none mb-6 prose-headings:text-gray-900 prose-p:text-gray-700"
                           dangerouslySetInnerHTML={{ 
                             __html: subunit.condensedContent
                               .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
@@ -354,14 +435,14 @@ export default function DashboardPage() {
                           }}
                         />
                         {subunit.keyFormulas.length > 0 && (
-                          <div className="bg-blue-50 rounded-xl p-4 border border-blue-100">
-                            <h4 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
+                          <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4 border border-blue-200 shadow-lg">
+                            <h4 className="font-black text-blue-900 mb-3 flex items-center gap-2">
                               <Target className="w-4 h-4" />
                               Key Formulas
                             </h4>
-                            <div className="space-y-2">
+                            <div className="grid gap-2">
                               {subunit.keyFormulas.map((formula, idx) => (
-                                <div key={idx} className="text-blue-800 font-mono text-sm bg-white px-3 py-2 rounded-lg">
+                                <div key={idx} className="text-blue-800 font-mono text-sm bg-white px-3 py-2 rounded-lg border border-blue-200">
                                   {formula}
                                 </div>
                               ))}
@@ -378,14 +459,16 @@ export default function DashboardPage() {
               {!condensedData[selectedUnit] && subunitsData[selectedUnit] && (
                 <div className="space-y-4">
                   <div className="flex items-center gap-3 mb-6">
-                    <BookOpen className="w-6 h-6 text-green-600" />
-                    <h2 className="text-2xl font-bold text-gray-900">Organized Content</h2>
+                    <div className="w-10 h-10 bg-gradient-to-r from-emerald-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+                      <BookOpen className="w-6 h-6 text-white" />
+                    </div>
+                    <h2 className="text-2xl font-black text-gray-900">Organized Content</h2>
                   </div>
                   {subunitsData[selectedUnit].map((subunit) => (
-                    <details key={subunit.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden group">
-                      <summary className="bg-green-50 px-6 py-4 font-semibold cursor-pointer hover:bg-green-100 transition-colors flex items-center justify-between">
+                    <details key={subunit.id} className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-300">
+                      <summary className="bg-gradient-to-r from-emerald-500 to-blue-600 px-6 py-4 font-bold cursor-pointer text-white transition-all duration-300 flex items-center justify-between">
                         <span>{subunit.id} - {subunit.title}</span>
-                        <ChevronRight className="w-5 h-5 text-gray-400 group-open:rotate-90 transition-transform" />
+                        <ChevronRight className="w-5 h-5 group-open:rotate-90 transition-transform duration-300" />
                       </summary>
                       <div className="p-6">
                         <div className="whitespace-pre-line text-gray-700 leading-relaxed">
