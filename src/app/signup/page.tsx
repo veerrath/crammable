@@ -98,14 +98,14 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#fff9f3ff] text-[#6b6b6b]">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 text-gray-700">
       {/* Sign-up Card */}
-      <div className="bg-[#fff9f3ff] p-8 rounded-2xl shadow-lg w-full max-w-md border border-[#6b6b6b]">
-        <h1 className="text-3xl font-bold mb-2">Sign Up</h1>
+      <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border border-amber-100">
+        <h1 className="text-3xl font-bold mb-2 text-gray-900">Sign Up</h1>
 
         <button
           onClick={handleGoogleSignIn}
-          className="w-full flex items-center justify-center gap-2 bg-gray-100 border cursor-pointer border-[#6b6b6b] py-2 rounded hover:bg-gray-200 transition"
+          className="w-full flex items-center justify-center gap-2 bg-gray-50 border border-gray-200 cursor-pointer py-3 rounded-lg hover:bg-gray-100 transition text-gray-700 font-medium"
         >
           <img
             src="https://www.svgrepo.com/show/355037/google.svg"
@@ -116,33 +116,33 @@ export default function SignUpPage() {
         </button>
 
         <div className="flex items-center my-6">
-          <hr className="flex-1 border-[#6b6b6b]" />
-          <span className="mx-2 text-[#6b6b6b] text-sm">OR</span>
-          <hr className="flex-1 border-[#6b6b6b]" />
+          <hr className="flex-1 border-gray-200" />
+          <span className="mx-2 text-gray-500 text-sm">OR</span>
+          <hr className="flex-1 border-gray-200" />
         </div>
 
         <form onSubmit={handleSignUp}>
           <div className="flex gap-2 mb-4">
             <div className="w-1/2">
-              <label className="block mb-1 text-sm font-medium">First name</label>
+              <label className="block mb-1 text-sm font-medium text-gray-700">First name</label>
               <input
                 type="text"
                 placeholder="Veer"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
-                className="w-full p-2 border border-[#6b6b6b] rounded-xl bg-[#fff9f3ff]"
+                className="w-full p-3 border border-gray-200 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-amber-500 focus:border-transparent"
                 required
                 autoComplete="given-name"
               />
             </div>
             <div className="w-1/2">
-              <label className="block mb-1 text-sm font-medium">Last name</label>
+              <label className="block mb-1 text-sm font-medium text-gray-700">Last name</label>
               <input
                 type="text"
                 placeholder="Rathore"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
-                className="w-full p-2 border border-[#6b6b6b] rounded-xl bg-[#fff9f3ff]"
+                className="w-full p-3 border border-gray-200 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-amber-500 focus:border-transparent"
                 required
                 autoComplete="family-name"
               />
@@ -150,39 +150,39 @@ export default function SignUpPage() {
           </div>
 
           <div className="mb-4">
-            <label className="block mb-1 text-sm font-medium">Email</label>
+            <label className="block mb-1 text-sm font-medium text-gray-700">Email</label>
             <input
               type="email"
               placeholder="veer@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-2 border border-[#6b6b6b] rounded-xl bg-[#fff9f3ff]"
+              className="w-full p-3 border border-gray-200 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-amber-500 focus:border-transparent"
               required
               autoComplete="email"
             />
           </div>
 
           <div className="mb-6">
-            <label className="block mb-1 text-sm font-medium">Password</label>
+            <label className="block mb-1 text-sm font-medium text-gray-700">Password</label>
             <input
               type="password"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-2 border border-[#6b6b6b] rounded-xl bg-[#fff9f3ff]"
+              className="w-full p-3 border border-gray-200 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-amber-500 focus:border-transparent"
               required
               autoComplete="new-password"
             />
           </div>
 
           {errorType === "emailExists" && (
-            <p className="mb-4 text-[#b86b3d]">
+            <p className="mb-4 text-red-600">
               The email address you entered is already registered.
             </p>
           )}
 
           {errorType === "weakPassword" && (
-            <div className="mb-4 text-[#b86b3d]">
+            <div className="mb-4 text-red-600">
               <p>Your password is too weak. Please make sure it meets all of the following:</p>
               <ul className="list-none p-0 mt-2">
                 {passwordRules.map(({ label, test }) => {
@@ -191,12 +191,12 @@ export default function SignUpPage() {
                     <li
                       key={label}
                       className={`flex items-center mb-1 ${
-                        passed ? "text-green-600" : "text-[#b86b3d]"
+                        passed ? "text-green-600" : "text-red-600"
                       }`}
                     >
                       <span
                         className={`inline-block w-5 h-5 mr-2 rounded-full text-white text-center text-xs leading-5 ${
-                          passed ? "bg-green-600" : "bg-[#b86b3d]"
+                          passed ? "bg-green-600" : "bg-red-600"
                         }`}
                       >
                         ✓
@@ -211,17 +211,17 @@ export default function SignUpPage() {
 
           <button
             type="submit"
-            className="w-full bg-[#8B4513] text-white py-2 rounded shadow-md hover:bg-[#5c2e0e] transition"
+            className="w-full bg-amber-900 text-white py-3 rounded-lg shadow-lg hover:bg-amber-800 transition-colors font-semibold"
           >
             Create an account
           </button>
         </form>
 
-        <p className="text-center text-sm mt-6">
+        <p className="text-center text-sm mt-6 text-gray-600">
           Already have an account?{" "}
           <button
             onClick={() => router.push("/signin")}
-            className="underline hover:text-[#8B4513] transition bg-transparent border-none p-0 cursor-pointer"
+            className="underline hover:text-amber-900 transition bg-transparent border-none p-0 cursor-pointer text-amber-700 font-medium"
             type="button"
           >
             Sign in
@@ -230,13 +230,13 @@ export default function SignUpPage() {
       </div>
 
       {/* Terms & Privacy outside card */}
-      <p className="text-center text-xs mt-6 max-w-md">
+      <p className="text-center text-xs mt-6 max-w-md text-gray-500">
         By creating or entering an account, you agree to the{" "}
-        <a href="/terms" className="underline text-[#8B4513]">
+        <a href="/terms" className="underline text-amber-700">
           Terms of Service
         </a>{" "}
         and{" "}
-        <a href="/privacy" className="underline text-[#8B4513]">
+        <a href="/privacy" className="underline text-amber-700">
           Privacy Policy
         </a>
         .

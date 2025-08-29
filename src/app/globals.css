@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fffbf7;
+  --foreground: #1f2937;
 }
 
 @theme inline {
@@ -14,16 +14,37 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #1f2937;
+    --foreground: #f9fafb;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
+
+/* Math rendering styles */
+.math-display {
+  display: block;
+  text-align: center;
+  margin: 1rem 0;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 0.5rem;
+  border: 1px solid #e2e8f0;
+  font-family: 'Computer Modern', serif;
+}
+
+.math-inline {
+  font-family: 'Computer Modern', serif;
+  background: #f1f5f9;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+}
+
 @keyframes bounceDown {
   0%, 100% {
     transform: translateY(0);
@@ -60,4 +81,3 @@ body {
 .sidebar:hover .sidebar-item {
   display: block;
 }
-

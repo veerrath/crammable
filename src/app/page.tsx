@@ -1,133 +1,174 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { BookOpen, Brain, Zap, Target, ArrowRight, CheckCircle } from "lucide-react";
 
 export default function LandingPage() {
   const router = useRouter();
 
   return (
-    <div style={styles.page}>
-      <header style={styles.header}>
-        <div style={styles.logo}>crammable</div>
-        <nav style={styles.nav}>
-          <a href="#" style={styles.navLink} onClick={() => alert("Overview coming soon")}>
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50">
+      {/* Header */}
+      <header className="flex justify-between items-center px-8 py-6">
+        <div className="text-3xl font-bold text-amber-900 tracking-tight">
+          crammable
+        </div>
+        <nav className="flex gap-8">
+          <button 
+            onClick={() => alert("Overview coming soon")}
+            className="text-amber-800 hover:text-amber-900 font-medium transition-colors"
+          >
             Overview
-          </a>
-          <a href="#" style={styles.navLink} onClick={() => router.push("/signup")}>
+          </button>
+          <button 
+            onClick={() => router.push("/signup")}
+            className="bg-amber-900 text-white px-6 py-2 rounded-lg hover:bg-amber-800 transition-colors font-medium"
+          >
             Sign Up
-          </a>
+          </button>
         </nav>
       </header>
 
-      <main style={styles.main}>
-        <div style={styles.leftSection}>
-          <h1 style={styles.title}>
-            The first AI<br />
-          </h1>
-          <h1 style={styles.title1}>
-            study scheduling app
-          </h1>
-          <p style={styles.subtitle}>
-            Be so prepared for a test you get <span style={{ fontStyle: "italic" }}>excited</span> thinking about it.
-          </p>
-          <button style = {styles.button} onClick={() => router.push("/signup")}>
-            Get Started
-          </button>
+      {/* Hero Section */}
+      <main className="max-w-7xl mx-auto px-8 py-16">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="space-y-8">
+            <div className="space-y-4">
+              <h1 className="text-6xl font-bold text-gray-900 leading-tight">
+                Master Every
+                <span className="text-amber-600 block">AP Subject</span>
+              </h1>
+              <p className="text-xl text-gray-600 leading-relaxed">
+                AI-powered comprehensive reviews that transform YouTube transcripts into 
+                structured study guides with practice problems and exam strategies.
+              </p>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button 
+                onClick={() => router.push("/signup")}
+                className="bg-amber-900 text-white px-8 py-4 rounded-xl hover:bg-amber-800 transition-all duration-200 font-semibold text-lg flex items-center gap-2 shadow-lg hover:shadow-xl"
+              >
+                Get Started Free
+                <ArrowRight className="w-5 h-5" />
+              </button>
+              <button 
+                onClick={() => router.push("/dashboard")}
+                className="border-2 border-amber-900 text-amber-900 px-8 py-4 rounded-xl hover:bg-amber-900 hover:text-white transition-all duration-200 font-semibold text-lg"
+              >
+                View Demo
+              </button>
+            </div>
+          </div>
 
+          <div className="relative">
+            <div className="bg-white rounded-2xl shadow-2xl p-8 border border-amber-100">
+              <div className="space-y-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                  <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                </div>
+                <div className="space-y-4">
+                  <div className="h-4 bg-amber-100 rounded w-3/4"></div>
+                  <div className="h-4 bg-amber-200 rounded w-1/2"></div>
+                  <div className="h-6 bg-amber-300 rounded w-5/6"></div>
+                  <div className="h-4 bg-amber-100 rounded w-2/3"></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
+
+      {/* Features Section */}
+      <section className="max-w-7xl mx-auto px-8 py-20">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            AI-Powered Study Pipeline
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Our three-stage AI system transforms raw content into comprehensive study materials
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          <div className="bg-white rounded-2xl p-8 shadow-lg border border-amber-100 hover:shadow-xl transition-shadow">
+            <div className="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center mb-6">
+              <BookOpen className="w-8 h-8 text-amber-600" />
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">1. Organize</h3>
+            <p className="text-gray-600 leading-relaxed">
+              AI analyzes YouTube transcripts and intelligently organizes content by units and subunits, 
+              creating a structured foundation for learning.
+            </p>
+          </div>
+
+          <div className="bg-white rounded-2xl p-8 shadow-lg border border-amber-100 hover:shadow-xl transition-shadow">
+            <div className="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center mb-6">
+              <Brain className="w-8 h-8 text-amber-600" />
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">2. Condense</h3>
+            <p className="text-gray-600 leading-relaxed">
+              Advanced AI condenses content, formats equations in LaTeX, extracts key formulas, 
+              and adds supplementary material for deeper understanding.
+            </p>
+          </div>
+
+          <div className="bg-white rounded-2xl p-8 shadow-lg border border-amber-100 hover:shadow-xl transition-shadow">
+            <div className="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center mb-6">
+              <Target className="w-8 h-8 text-amber-600" />
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">3. Review</h3>
+            <p className="text-gray-600 leading-relaxed">
+              Final AI generates comprehensive reviews with practice problems, 
+              exam strategies, and connections between concepts.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits Section */}
+      <section className="bg-white py-20">
+        <div className="max-w-7xl mx-auto px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="space-y-8">
+              <h2 className="text-4xl font-bold text-gray-900">
+                Why Choose Crammable?
+              </h2>
+              <div className="space-y-6">
+                {[
+                  "AI-powered content organization and enhancement",
+                  "LaTeX-formatted equations for professional presentation",
+                  "Comprehensive practice problems with solutions",
+                  "Exam strategies from expert educators",
+                  "Structured learning paths for every AP subject"
+                ].map((benefit, index) => (
+                  <div key={index} className="flex items-start gap-4">
+                    <CheckCircle className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
+                    <p className="text-lg text-gray-700">{benefit}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="bg-gradient-to-br from-amber-100 to-orange-100 rounded-2xl p-8">
+              <div className="space-y-4">
+                <Zap className="w-12 h-12 text-amber-600" />
+                <h3 className="text-2xl font-bold text-gray-900">Ready to Excel?</h3>
+                <p className="text-gray-600">
+                  Join thousands of students who have improved their AP scores with our AI-powered study system.
+                </p>
+                <button 
+                  onClick={() => router.push("/signup")}
+                  className="bg-amber-900 text-white px-6 py-3 rounded-lg hover:bg-amber-800 transition-colors font-semibold"
+                >
+                  Start Learning Today
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
-
-const styles: { [key: string]: React.CSSProperties } = {
-  page: {
-    height: "100vh",
-    backgroundColor: "#fff9f3ff",
-    color: "#111",
-    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-    display: "flex",
-    flexDirection: "column",
-  },
-  header: {
-    height: 60,
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "0 40px",
-    borderBottom: "",
-  },
-  logo: {
-    fontWeight: "800",
-    paddingLeft: 110,
-    paddingTop: 40,
-    fontSize: 31,
-    textTransform: "lowercase",
-    cursor: "default",
-    color: "#6c4735ff",
-    letterSpacing: "0.05em",
-    fontFamily:"cursive"
-  },
-  nav: {
-    display: "flex",
-    gap: 24,
-    paddingRight: 200,
-    paddingTop:40,
-
-    
-  },
-  navLink: {
-    color: "#292828ff",
-    fontFamily:"Verdana",
-    fontWeight: "100",
-    fontSize: 18,
-    textDecoration: "none",
-    cursor: "pointer",
-    transition: "color 0.25s ease",
-  },
-  main: {
-    flex: 1,
-    display: "flex",
-    alignItems: "center",
-    paddingLeft: "8vw",
-  },
-  leftSection: {
-    maxWidth: 600,
-  },
-  title: {
-    fontSize: 45,
-    fontWeight: "600",
-    color: "#000000ff",
-    lineHeight: 1.1,
-    margin: 0,
-    paddingLeft:80,
-  },
-  title1: {
-    fontSize: 45,
-    paddingLeft:80,
-    fontWeight: "800",
-    lineHeight: 1.1,
-    margin: 0,
-  },
-  subtitle: {
-    marginTop: 20,
-    fontSize: 19,
-    paddingLeft:80,
-    paddingTop:10,
-    color: "#000000",
-    fontWeight: "400",
-  },
-  button: {
-    backgroundColor: '#793b0fff',
-    color: 'white',
-    border: 'none',
-    padding: '12px 24px',
-    fontSize: '16px',
-    fontWeight: 'bold',
-    borderRadius: '8px',
-    cursor: 'pointer',
-    boxShadow: '0px 4px 6px rgba(0,0,0,0.1), 0px 12px 30px rgba(0,0,0,0.3)', // big bottom shadow
-    marginLeft: 80,
-    marginTop: 20,
-  }
-};
