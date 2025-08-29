@@ -1,139 +1,161 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { BookOpen, Brain, Zap, Target, ArrowRight, CheckCircle } from "lucide-react";
+import { BookOpen, Brain, Zap, Target, ArrowRight, CheckCircle, Star, Users, Award } from "lucide-react";
 
 export default function LandingPage() {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50">
+    <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="flex justify-between items-center px-8 py-6">
-        <div className="text-3xl font-bold text-amber-900 tracking-tight">
-          crammable
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex justify-between items-center">
+            <div className="text-2xl font-bold text-gray-900 tracking-tight">
+              crammable
+            </div>
+            <nav className="hidden md:flex items-center gap-8">
+              <button 
+                onClick={() => alert("Features coming soon")}
+                className="text-gray-600 hover:text-gray-900 font-medium transition-colors"
+              >
+                Features
+              </button>
+              <button 
+                onClick={() => alert("Pricing coming soon")}
+                className="text-gray-600 hover:text-gray-900 font-medium transition-colors"
+              >
+                Pricing
+              </button>
+              <button 
+                onClick={() => router.push("/signin")}
+                className="text-gray-600 hover:text-gray-900 font-medium transition-colors"
+              >
+                Sign In
+              </button>
+              <button 
+                onClick={() => router.push("/signup")}
+                className="bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-colors font-medium shadow-sm"
+              >
+                Get Started
+              </button>
+            </nav>
+          </div>
         </div>
-        <nav className="flex gap-8">
-          <button 
-            onClick={() => alert("Overview coming soon")}
-            className="text-amber-800 hover:text-amber-900 font-medium transition-colors"
-          >
-            Overview
-          </button>
-          <button 
-            onClick={() => router.push("/signup")}
-            className="bg-amber-900 text-white px-6 py-2 rounded-lg hover:bg-amber-800 transition-colors font-medium"
-          >
-            Sign Up
-          </button>
-        </nav>
       </header>
 
       {/* Hero Section */}
-      <main className="max-w-7xl mx-auto px-8 py-16">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div className="space-y-8">
-            <div className="space-y-4">
-              <h1 className="text-6xl font-bold text-gray-900 leading-tight">
-                Master Every
-                <span className="text-amber-600 block">AP Subject</span>
-              </h1>
-              <p className="text-xl text-gray-600 leading-relaxed">
-                AI-powered comprehensive reviews that transform YouTube transcripts into 
-                structured study guides with practice problems and exam strategies.
-              </p>
+      <section className="pt-20 pb-32 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center max-w-4xl mx-auto">
+            <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-full text-sm font-medium mb-8">
+              <Star className="w-4 h-4" />
+              AI-Powered Study Revolution
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-4">
+            <h1 className="text-5xl md:text-7xl font-bold text-gray-900 leading-tight mb-8">
+              Master Every
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent block">
+                AP Subject
+              </span>
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-gray-600 leading-relaxed mb-12 max-w-3xl mx-auto">
+              Transform YouTube lectures into comprehensive study guides with AI-powered 
+              organization, condensation, and practice problems.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
               <button 
                 onClick={() => router.push("/signup")}
-                className="bg-amber-900 text-white px-8 py-4 rounded-xl hover:bg-amber-800 transition-all duration-200 font-semibold text-lg flex items-center gap-2 shadow-lg hover:shadow-xl"
+                className="bg-blue-600 text-white px-8 py-4 rounded-xl hover:bg-blue-700 transition-all duration-200 font-semibold text-lg flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
               >
-                Get Started Free
+                Start Learning Free
                 <ArrowRight className="w-5 h-5" />
               </button>
               <button 
                 onClick={() => router.push("/dashboard")}
-                className="border-2 border-amber-900 text-amber-900 px-8 py-4 rounded-xl hover:bg-amber-900 hover:text-white transition-all duration-200 font-semibold text-lg"
+                className="border-2 border-gray-200 text-gray-700 px-8 py-4 rounded-xl hover:border-gray-300 hover:bg-gray-50 transition-all duration-200 font-semibold text-lg"
               >
                 View Demo
               </button>
             </div>
-          </div>
 
-          <div className="relative">
-            <div className="bg-white rounded-2xl shadow-2xl p-8 border border-amber-100">
-              <div className="space-y-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                </div>
-                <div className="space-y-4">
-                  <div className="h-4 bg-amber-100 rounded w-3/4"></div>
-                  <div className="h-4 bg-amber-200 rounded w-1/2"></div>
-                  <div className="h-6 bg-amber-300 rounded w-5/6"></div>
-                  <div className="h-4 bg-amber-100 rounded w-2/3"></div>
-                </div>
+            {/* Social Proof */}
+            <div className="flex items-center justify-center gap-8 text-gray-500 text-sm">
+              <div className="flex items-center gap-2">
+                <Users className="w-4 h-4" />
+                <span>10,000+ Students</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Award className="w-4 h-4" />
+                <span>15+ AP Subjects</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Star className="w-4 h-4" />
+                <span>4.9/5 Rating</span>
               </div>
             </div>
           </div>
         </div>
-      </main>
+      </section>
 
       {/* Features Section */}
-      <section className="max-w-7xl mx-auto px-8 py-20">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            AI-Powered Study Pipeline
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Our three-stage AI system transforms raw content into comprehensive study materials
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="bg-white rounded-2xl p-8 shadow-lg border border-amber-100 hover:shadow-xl transition-shadow">
-            <div className="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center mb-6">
-              <BookOpen className="w-8 h-8 text-amber-600" />
-            </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">1. Organize</h3>
-            <p className="text-gray-600 leading-relaxed">
-              AI analyzes YouTube transcripts and intelligently organizes content by units and subunits, 
-              creating a structured foundation for learning.
+      <section className="py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              Three-Stage AI Pipeline
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Our advanced AI system transforms raw video content into structured, comprehensive study materials
             </p>
           </div>
 
-          <div className="bg-white rounded-2xl p-8 shadow-lg border border-amber-100 hover:shadow-xl transition-shadow">
-            <div className="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center mb-6">
-              <Brain className="w-8 h-8 text-amber-600" />
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 group">
+              <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-200 transition-colors">
+                <BookOpen className="w-8 h-8 text-blue-600" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">1. Organize</h3>
+              <p className="text-gray-600 leading-relaxed">
+                AI analyzes YouTube transcripts and intelligently organizes content by units and subunits, 
+                creating a structured foundation for learning.
+              </p>
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">2. Condense</h3>
-            <p className="text-gray-600 leading-relaxed">
-              Advanced AI condenses content, formats equations in LaTeX, extracts key formulas, 
-              and adds supplementary material for deeper understanding.
-            </p>
-          </div>
 
-          <div className="bg-white rounded-2xl p-8 shadow-lg border border-amber-100 hover:shadow-xl transition-shadow">
-            <div className="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center mb-6">
-              <Target className="w-8 h-8 text-amber-600" />
+            <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 group">
+              <div className="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-purple-200 transition-colors">
+                <Brain className="w-8 h-8 text-purple-600" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">2. Condense</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Advanced AI condenses content, formats equations in LaTeX, extracts key formulas, 
+                and adds supplementary material for deeper understanding.
+              </p>
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">3. Review</h3>
-            <p className="text-gray-600 leading-relaxed">
-              Final AI generates comprehensive reviews with practice problems, 
-              exam strategies, and connections between concepts.
-            </p>
+
+            <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 group">
+              <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-green-200 transition-colors">
+                <Target className="w-8 h-8 text-green-600" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">3. Review</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Final AI generates comprehensive reviews with practice problems, 
+                exam strategies, and connections between concepts.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Benefits Section */}
-      <section className="bg-white py-20">
-        <div className="max-w-7xl mx-auto px-8">
+      <section className="py-24">
+        <div className="max-w-7xl mx-auto px-6">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
-              <h2 className="text-4xl font-bold text-gray-900">
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
                 Why Choose Crammable?
               </h2>
               <div className="space-y-6">
@@ -151,16 +173,17 @@ export default function LandingPage() {
                 ))}
               </div>
             </div>
-            <div className="bg-gradient-to-br from-amber-100 to-orange-100 rounded-2xl p-8">
-              <div className="space-y-4">
-                <Zap className="w-12 h-12 text-amber-600" />
-                <h3 className="text-2xl font-bold text-gray-900">Ready to Excel?</h3>
-                <p className="text-gray-600">
+            
+            <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-3xl p-12 border border-gray-100">
+              <div className="space-y-6">
+                <Zap className="w-12 h-12 text-blue-600" />
+                <h3 className="text-3xl font-bold text-gray-900">Ready to Excel?</h3>
+                <p className="text-gray-600 text-lg leading-relaxed">
                   Join thousands of students who have improved their AP scores with our AI-powered study system.
                 </p>
                 <button 
                   onClick={() => router.push("/signup")}
-                  className="bg-amber-900 text-white px-6 py-3 rounded-lg hover:bg-amber-800 transition-colors font-semibold"
+                  className="bg-blue-600 text-white px-8 py-4 rounded-xl hover:bg-blue-700 transition-colors font-semibold text-lg shadow-lg hover:shadow-xl"
                 >
                   Start Learning Today
                 </button>
@@ -169,6 +192,51 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-16">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-4 gap-8">
+            <div className="space-y-4">
+              <div className="text-2xl font-bold">crammable</div>
+              <p className="text-gray-400">
+                AI-powered study guides for AP success.
+              </p>
+            </div>
+            
+            <div className="space-y-4">
+              <h4 className="font-semibold">Product</h4>
+              <div className="space-y-2 text-gray-400">
+                <div>Features</div>
+                <div>Pricing</div>
+                <div>Demo</div>
+              </div>
+            </div>
+            
+            <div className="space-y-4">
+              <h4 className="font-semibold">Company</h4>
+              <div className="space-y-2 text-gray-400">
+                <div>About</div>
+                <div>Blog</div>
+                <div>Careers</div>
+              </div>
+            </div>
+            
+            <div className="space-y-4">
+              <h4 className="font-semibold">Support</h4>
+              <div className="space-y-2 text-gray-400">
+                <div>Help Center</div>
+                <div>Contact</div>
+                <div>Privacy</div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+            <p>&copy; 2025 Crammable. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

@@ -10,6 +10,7 @@ import { auth } from "../firebase";
 import { useRouter } from "next/navigation";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import { ArrowLeft, Check, X } from "lucide-react";
 
 const passwordRules = [
   { label: "At least 8 characters", test: (pw: string) => pw.length >= 8 },
@@ -28,11 +29,13 @@ export default function SignUpPage() {
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [errorType, setErrorType] = useState<"emailExists" | "weakPassword" | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorType(null);
+    setIsLoading(true);
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -54,8 +57,10 @@ export default function SignUpPage() {
         setErrorType("weakPassword");
       } else {
         setErrorType(null);
-        console.error("Sign up error:", err);
+        setErrorMsg("Failed to create account. Please try again.");
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -64,6 +69,7 @@ export default function SignUpPage() {
     provider.addScope("profile");
     provider.addScope("email");
     setErrorMsg("");
+    setIsLoading(true);
 
     try {
       const result = await signInWithPopup(auth, provider);
@@ -93,19 +99,34 @@ export default function SignUpPage() {
 
       router.push("/dashboard");
     } catch (error: any) {
-      setErrorMsg(error.message || "Google sign-in failed.");
+      setErrorMsg("Google sign-in failed. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 text-gray-700">
-      {/* Sign-up Card */}
-      <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border border-amber-100">
-        <h1 className="text-3xl font-bold mb-2 text-gray-900">Sign Up</h1>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-6">
+      {/* Back button */}
+      <button
+        onClick={() => router.push("/")}
+        className="absolute top-6 left-6 flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+      >
+        <ArrowLeft className="w-4 h-4" />
+        Back to home
+      </button>
+
+      {/* Sign Up Card */}
+      <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md border border-gray-100">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Create account</h1>
+          <p className="text-gray-600">Start your learning journey</p>
+        </div>
 
         <button
           onClick={handleGoogleSignIn}
-          className="w-full flex items-center justify-center gap-2 bg-gray-50 border border-gray-200 cursor-pointer py-3 rounded-lg hover:bg-gray-100 transition text-gray-700 font-medium"
+          disabled={isLoading}
+          className="w-full flex items-center justify-center gap-3 bg-white border-2 border-gray-200 py-3 rounded-xl hover:border-gray-300 hover:bg-gray-50 transition-all font-medium text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <img
             src="https://www.svgrepo.com/show/355037/google.svg"
@@ -117,103 +138,128 @@ export default function SignUpPage() {
 
         <div className="flex items-center my-6">
           <hr className="flex-1 border-gray-200" />
-          <span className="mx-2 text-gray-500 text-sm">OR</span>
+          <span className="mx-4 text-gray-500 text-sm">or</span>
           <hr className="flex-1 border-gray-200" />
         </div>
 
-        <form onSubmit={handleSignUp}>
-          <div className="flex gap-2 mb-4">
-            <div className="w-1/2">
-              <label className="block mb-1 text-sm font-medium text-gray-700">First name</label>
+        <form onSubmit={handleSignUp} className="space-y-4">
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                First name
+              </label>
               <input
                 type="text"
-                placeholder="Veer"
+                placeholder="John"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
-                className="w-full p-3 border border-gray-200 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                className="w-full p-3 border border-gray-200 rounded-xl bg-white text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                 required
+                disabled={isLoading}
                 autoComplete="given-name"
               />
             </div>
-            <div className="w-1/2">
-              <label className="block mb-1 text-sm font-medium text-gray-700">Last name</label>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Last name
+              </label>
               <input
                 type="text"
-                placeholder="Rathore"
+                placeholder="Doe"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
-                className="w-full p-3 border border-gray-200 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                className="w-full p-3 border border-gray-200 rounded-xl bg-white text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                 required
+                disabled={isLoading}
                 autoComplete="family-name"
               />
             </div>
           </div>
 
-          <div className="mb-4">
-            <label className="block mb-1 text-sm font-medium text-gray-700">Email</label>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Email address
+            </label>
             <input
               type="email"
-              placeholder="veer@example.com"
+              placeholder="john@example.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-3 border border-gray-200 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+              className="w-full p-3 border border-gray-200 rounded-xl bg-white text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
               required
+              disabled={isLoading}
               autoComplete="email"
             />
           </div>
 
-          <div className="mb-6">
-            <label className="block mb-1 text-sm font-medium text-gray-700">Password</label>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Password
+            </label>
             <input
               type="password"
-              placeholder="••••••••"
+              placeholder="Create a strong password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-3 border border-gray-200 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+              className="w-full p-3 border border-gray-200 rounded-xl bg-white text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
               required
+              disabled={isLoading}
               autoComplete="new-password"
             />
-          </div>
-
-          {errorType === "emailExists" && (
-            <p className="mb-4 text-red-600">
-              The email address you entered is already registered.
-            </p>
-          )}
-
-          {errorType === "weakPassword" && (
-            <div className="mb-4 text-red-600">
-              <p>Your password is too weak. Please make sure it meets all of the following:</p>
-              <ul className="list-none p-0 mt-2">
+            
+            {/* Password strength indicator */}
+            {password && (
+              <div className="mt-3 space-y-2">
                 {passwordRules.map(({ label, test }) => {
                   const passed = test(password);
                   return (
-                    <li
+                    <div
                       key={label}
-                      className={`flex items-center mb-1 ${
-                        passed ? "text-green-600" : "text-red-600"
+                      className={`flex items-center gap-2 text-sm ${
+                        passed ? "text-green-600" : "text-gray-400"
                       }`}
                     >
-                      <span
-                        className={`inline-block w-5 h-5 mr-2 rounded-full text-white text-center text-xs leading-5 ${
-                          passed ? "bg-green-600" : "bg-red-600"
-                        }`}
-                      >
-                        ✓
-                      </span>
+                      {passed ? (
+                        <Check className="w-4 h-4" />
+                      ) : (
+                        <X className="w-4 h-4" />
+                      )}
                       {label}
-                    </li>
+                    </div>
                   );
                 })}
-              </ul>
+              </div>
+            )}
+          </div>
+
+          {errorType === "emailExists" && (
+            <div className="p-3 bg-red-50 border border-red-200 rounded-xl">
+              <p className="text-red-600 text-sm">
+                This email is already registered. Try signing in instead.
+              </p>
+            </div>
+          )}
+
+          {errorType === "weakPassword" && (
+            <div className="p-3 bg-red-50 border border-red-200 rounded-xl">
+              <p className="text-red-600 text-sm">
+                Please create a stronger password that meets all requirements above.
+              </p>
+            </div>
+          )}
+
+          {errorMsg && (
+            <div className="p-3 bg-red-50 border border-red-200 rounded-xl">
+              <p className="text-red-600 text-sm">{errorMsg}</p>
             </div>
           )}
 
           <button
             type="submit"
-            className="w-full bg-amber-900 text-white py-3 rounded-lg shadow-lg hover:bg-amber-800 transition-colors font-semibold"
+            disabled={isLoading}
+            className="w-full bg-blue-600 text-white py-3 rounded-xl hover:bg-blue-700 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Create an account
+            {isLoading ? "Creating account..." : "Create account"}
           </button>
         </form>
 
@@ -221,7 +267,7 @@ export default function SignUpPage() {
           Already have an account?{" "}
           <button
             onClick={() => router.push("/signin")}
-            className="underline hover:text-amber-900 transition bg-transparent border-none p-0 cursor-pointer text-amber-700 font-medium"
+            className="text-blue-600 hover:text-blue-700 font-medium transition-colors"
             type="button"
           >
             Sign in
@@ -229,14 +275,14 @@ export default function SignUpPage() {
         </p>
       </div>
 
-      {/* Terms & Privacy outside card */}
-      <p className="text-center text-xs mt-6 max-w-md text-gray-500">
-        By creating or entering an account, you agree to the{" "}
-        <a href="/terms" className="underline text-amber-700">
+      {/* Terms */}
+      <p className="text-center text-xs text-gray-500 mt-8 max-w-md">
+        By creating an account, you agree to our{" "}
+        <a href="/terms" className="text-blue-600 hover:text-blue-700">
           Terms of Service
         </a>{" "}
         and{" "}
-        <a href="/privacy" className="underline text-amber-700">
+        <a href="/privacy" className="text-blue-600 hover:text-blue-700">
           Privacy Policy
         </a>
         .
